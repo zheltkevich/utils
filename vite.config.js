@@ -9,6 +9,8 @@ export default defineConfig({
         alias: {
             '@': fileURLToPath(new URL('./src', import.meta.url)),
             '@js': fileURLToPath(new URL('./src/js', import.meta.url)),
+            '@helpers': fileURLToPath(new URL('./src/js/helpers', import.meta.url)),
+            '@modules': fileURLToPath(new URL('./src/js/modules', import.meta.url)),
             '@scss': fileURLToPath(new URL('./src/scss', import.meta.url)),
             '@stores': fileURLToPath(new URL('./src/stores', import.meta.url)),
             '@router': fileURLToPath(new URL('./src/router', import.meta.url)),
