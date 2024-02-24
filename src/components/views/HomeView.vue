@@ -49,64 +49,56 @@ const radioChoises2 = [
     },
 ]
 
-const checkboxChoises1 = [
+const checkboxes = ref([
     {
         name: 'color-scheme1',
-        key: 'light',
-        value: 'light',
+        value: {
+            title: 'light',
+            payload: 1111,
+        },
         label: 'Light mode',
     },
     {
         name: 'color-scheme1',
-        key: 'auto',
-        value: 'auto',
+        value: {
+            title: 'auto',
+            payload: 2222,
+        },
         label: 'Auto mode',
     },
     {
         name: 'color-scheme1',
-        key: 'dark',
-        value: 'dark',
+        value: {
+            title: 'dark',
+            payload: 3333,
+        },
         label: 'Dark mode',
     },
-]
+])
 const selectedCheckboxes1 = ref([])
-const setCheckboxChoice = val => (selectedCheckboxes1.value = val)
-
-const checkboxChoises2 = [
-    {
-        name: 'color-scheme1',
-        key: 'light',
-        value: {
-            prop1: 111111,
-            prop2: '111111',
-        },
-        label: 'Light mode',
-    },
-    {
-        name: 'color-scheme1',
-        key: 'auto',
-        value: {
-            prop1: 222222,
-            prop2: '222222',
-        },
-        label: 'Auto mode',
-    },
-    {
-        name: 'color-scheme1',
-        key: 'dark',
-        value: {
-            prop1: 333333,
-            prop2: '333333',
-        },
-        label: 'Dark mode',
-    },
-]
-const selectedCheckboxes2 = ref([])
+const updateSelected = (value, checked) => {
+    if (checked) selectedCheckboxes1.value = [...selectedCheckboxes1.value, value]
+    else selectedCheckboxes1.value = selectedCheckboxes1.value.filter(item => item !== value)
+}
 </script>
 
 <template>
     <div>
         <div><IconEcosystem /> Home view</div>
+
+        <div>
+            <BaseInputCheckbox
+                v-for="(item, index) in checkboxes"
+                :key="index"
+                group="test-checkbox"
+                :value="item.value"
+                :items="checkboxes"
+                :checked="checkedIndex"
+                @change="updateSelected">
+                <template #label>{{ item.label }} </template>
+            </BaseInputCheckbox>
+            <p>Выбранный вариант: {{ selectedCheckboxes1 }}</p>
+        </div>
         <div>
             <BaseInputRadio
                 v-for="(choise, index) in radioChoises1"
@@ -127,27 +119,6 @@ const selectedCheckboxes2 = ref([])
                 <template #label>{{ choise.label }}</template>
             </BaseInputRadio>
             <p>Выбранный вариант: {{ selectedRadio2 }}</p>
-        </div>
-        <div>
-            <BaseInputCheckbox
-                v-for="(choise, index) in checkboxChoises1"
-                :key="index"
-                :name="choise.name"
-                :selected="selectedCheckboxes1"
-                :value="choise.value"
-                @change="setCheckboxChoice">
-                <template #label>{{ choise.label }}</template>
-            </BaseInputCheckbox>
-            <p>Выбранный вариант: {{ selectedCheckboxes1 }}</p>
-            <BaseInputCheckbox
-                v-for="(choise, index) in checkboxChoises2"
-                :key="index"
-                v-model:selected="selectedCheckboxes2"
-                :name="choise.name"
-                :value="choise.value">
-                <template #label>{{ choise.label }}</template>
-            </BaseInputCheckbox>
-            <p>Выбранные варианты: {{ selectedCheckboxes2 }}</p>
         </div>
     </div>
 </template>

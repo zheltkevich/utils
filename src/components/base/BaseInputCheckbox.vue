@@ -12,29 +12,35 @@ const props = defineProps({
         default: '',
     },
     value: {
-        type: [Number, String],
+        type: [Number, String, Boolean, Array, Object],
         default: null,
     },
-    selected: {
-        type: [Array],
-        default: () => [],
+    checked: {
+        type: Boolean,
+        default: false,
     },
 })
 
 const computedId = computed(() => props.id || getRandomId())
 const computedName = computed(() => props.name || null)
-const checked = computed(() => props.selected.includes(props.value))
 
 const emit = defineEmits(['update:selected', 'change'])
 const onChange = event => {
-    let selectedValues = []
-
-    if (event.target.checked) selectedValues = [...props.selected, props.value]
-    else selectedValues = props.selected.filter(item => item !== props.value)
-
-    emit('update:selected', selectedValues)
-    emit('change', selectedValues)
+    const { checked } = event.target
+    emit('update:selected', props.value, checked)
+    emit('change', props.value, checked)
 }
+
+// const onChange = event => {
+//     console.log(event)
+//     let selectedValues = []
+
+//     if (event.target.checked) selectedValues = [...props.selected, props.value]
+//     else selectedValues = props.selected.filter(item => item !== props.value)
+
+//     emit('update:selected', selectedValues)
+//     emit('change', selectedValues)
+// }
 </script>
 
 <template>
