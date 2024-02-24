@@ -1,0 +1,54 @@
+{
+    "name": "vue-spa-template",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "engines": {
+        "npm": "^10.0.0",
+        "node": "^20.0.0"
+    },
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview",
+        "check:js": "eslint . --ext .vue,.js,.cjs,.mjs",
+        "check:styles": "stylelint \"**/*.{css,scss,vue}\"",
+        "check": "npm run check:js && npm run check:styles",
+        "fix:js": "eslint . --ext .vue,.js,.cjs,.mjs --quiet --fix --ignore-path .eslintignore",
+        "fix:styles": "stylelint \"**/*.{css,scss,vue}\" --quiet --fix --ignore-path .stylelintignore",
+        "fix": "npm run fix:js && npm run fix:styles",
+        "format": "prettier --write . --ignore-path .prettierignore"
+    },
+    "lint-staged": {
+        "*": "npm run format",
+        "*.{vue,css,scss}": "npm run fix:styles",
+        "*.{vue,js,cjs,mjs}": "npm run fix:js"
+    },
+    "simple-git-hooks": {
+        "pre-commit": "npx lint-staged"
+    },
+    "dependencies": {
+        "pinia": "^2.1.7",
+        "vue": "^3.4.15",
+        "vue-router": "^4.2.5"
+    },
+    "devDependencies": {
+        "@rushstack/eslint-patch": "^1.7.2",
+        "@vitejs/plugin-vue": "^5.0.3",
+        "@vue/eslint-config-prettier": "^9.0.0",
+        "eslint": "^8.56.0",
+        "eslint-plugin-vue": "^9.21.1",
+        "lint-staged": "^15.2.1",
+        "postcss-html": "^1.6.0",
+        "prettier": "^3.2.4",
+        "sass": "^1.70.0",
+        "simple-git-hooks": "^2.9.0",
+        "stylelint": "^16.2.1",
+        "stylelint-config-recommended-vue": "^1.5.0",
+        "stylelint-config-standard": "^36.0.0",
+        "stylelint-config-standard-scss": "^13.0.0",
+        "stylelint-order": "^6.0.4",
+        "stylelint-scss": "^6.1.0",
+        "vite": "^5.0.11"
+    }
+}
